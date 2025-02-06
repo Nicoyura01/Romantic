@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./CartaMedieval.css";
-import "./BotonSi"
-import "./BotonNo"
+import BotonSi from "./BotonSi";  // Asegúrate de importar correctamente el archivo
+import BotonNo from "./BotonNo";  // Asegúrate de importar correctamente el archivo
 
 const CartaMedieval = () => {
   const [clicksNo, setClicksNo] = useState(0);
@@ -34,30 +34,20 @@ const CartaMedieval = () => {
                 <h1>¿Ely, quieres ser mi San Valentín?</h1>
                 <p>Quiero que seas el amor de mi vida y celebrar todos los siguientes a tu lado.</p>
                 <div className={`botones ${clicksNo >= 7 ? "centrado" : ""}`}>
-                  <button className="btn-si" onClick={handleSiClick}>
-                    ¡Claro que sí!
-                  </button>
+                  <BotonSi onClick={handleSiClick} />
                   {clicksNo < 7 && (
-                    <button
-                      className="btn-no"
-                      onClick={handleNoClick}
-                      style={{
-                        transform: `scale(${1 - clicksNo * 0.14})`,
-                        opacity: 1 - clicksNo * 0.14,
-                      }}
-                    >
-                      No, gracias
-                    </button>
+                    <BotonNo onClick={handleNoClick} clicksNo={clicksNo} />
                   )}
                 </div>
               </>
             ) : (
               <div className="mensaje-final">
-                <h2>Avy Jorrāelan</h2>
-                <p>(Eres mi amor)</p>
+                <h2>SERÁS LA MUJER MÁS AMADA DEL UNIVERSO</h2>
+                <p>Avy Jorrāelan</p>
               </div>
             )}
           </div>
+        
           <div className="boton-disparo">
             <span>N & E</span>
           </div>
@@ -66,5 +56,6 @@ const CartaMedieval = () => {
     </div>
   );
 };
+
 
 export default CartaMedieval;
