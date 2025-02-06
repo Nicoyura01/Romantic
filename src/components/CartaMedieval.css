@@ -5,12 +5,13 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f0f0f0;
+  background: linear-gradient(to bottom, #f0f0f0, #ffe0f0);
   font-family: Arial, sans-serif;
 }
 
 .contenedor {
   perspective: 1000px;
+  position: relative;
 }
 
 .camara {
@@ -28,7 +29,7 @@ body {
 }
 
 .camara.girar {
-  transform: rotateY(180deg); /* Esto hace que la cámara gire */
+  transform: rotateY(180deg);
 }
 
 .cuerpo-camara {
@@ -83,17 +84,36 @@ body {
 h1 {
   font-size: 24px;
   margin: 0;
+  opacity: 0;
+  animation: aparecerTexto 1s ease-in-out forwards;
 }
 
 p {
   font-size: 16px;
   margin: 10px 0;
+  opacity: 0;
+  animation: aparecerTexto 1.5s ease-in-out forwards;
+}
+
+@keyframes aparecerTexto {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .botones {
   display: flex;
   gap: 10px;
   margin-top: 20px;
+}
+
+.botones.centrado {
+  justify-content: center;
 }
 
 button {
@@ -131,6 +151,51 @@ button:hover {
   text-align: center;
   margin-top: 30px;
   text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  transform: rotateY(180deg);
+  opacity: 0;
+  animation: aparecerMensaje 2s ease-in-out forwards;
+}
+
+@keyframes aparecerMensaje {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.corazon {
+  position: absolute;
+  font-size: 24px;
+  color: #ff4081;
+  animation: corazones 2s linear infinite;
+}
+
+@keyframes corazones {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1);
+    opacity: 0;
+  }
+}
+
+.lente {
+  animation: brillo 1s infinite alternate;
+}
+
+@keyframes brillo {
+  0% {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+  }
 }
 
 .boton-disparo {
@@ -151,7 +216,6 @@ button:hover {
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Asegurar que todos los elementos tengan un margen y padding coherente */
 * {
   box-sizing: border-box;
   margin: 0;
