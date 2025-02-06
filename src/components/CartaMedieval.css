@@ -1,139 +1,159 @@
-/* Contenedor de la carta */
-.carta-container {
-  perspective: 1000px; /* Para darle el efecto 3D de profundidad */
+body {
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Para que la carta se centre verticalmente */
-  padding: 20px; /* Espacio para que la carta no toque los bordes en dispositivos pequeños */
-  box-sizing: border-box; /* Para incluir el padding en el tamaño total */
+  height: 100vh;
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
 }
 
-.carta {
-  width: 100%;
-  max-width: 350px; /* Establece un límite máximo de tamaño */
-  height: auto;
-  text-align: center;
-  font-family: 'Arial', sans-serif;
-  font-size: 16px;
-  transform-style: preserve-3d; /* Para hacer la animación de giro en 3D */
-  transition: transform 1s ease-in-out; /* Suaviza el giro */
+.contenedor {
+  perspective: 1000px;
+}
+
+.camara {
+  width: 500px;
+  height: 400px;
+  background-color: #333;
+  border-radius: 20px;
   position: relative;
-  transform-origin: center; /* Para que el giro sea sobre el centro */
+  transform-style: preserve-3d;
+  transition: transform 1s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Estilo para cuando la carta está girada */
-.carta.girada {
-  transform: rotateY(180deg); /* Gira solo la carta */
+.camara.girar {
+  transform: rotateY(180deg); /* Esto hace que la cámara gire */
 }
 
-/* Cara frontal */
-.carta-frontal {
-  background-color: #f0e5d8;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  position: absolute;
+.cuerpo-camara {
   width: 100%;
-  backface-visibility: hidden; /* No se muestra cuando la carta se gira */
-  top: 0;
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.visor-reflex {
+  width: 100px;
+  height: 50px;
+  background-color: #444;
+  border-radius: 10px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.lente {
+  width: 300px;
+  height: 300px;
+  background-color: #555;
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  border: 15px solid #444;
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.5);
+  position: relative;
 }
 
-.carta h2 {
-  font-family: 'Times New Roman', serif;
-  color: #8e5d44;
-  font-size: 22px;
-  margin-bottom: 10px;
+.lente::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-.carta p {
-  font-size: 14px;
-  color: #6b4f31;
+h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+p {
+  font-size: 16px;
   margin: 10px 0;
-  line-height: 1.4;
 }
 
 .botones {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: 10px;
   margin-top: 20px;
 }
 
-.btn-aceptar {
-  background-color: #d16d3b;
-  color: white;
+button {
+  padding: 10px 20px;
   border: none;
-  padding: 12px 24px;
-  font-size: 18px;
-  border-radius: 8px;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  width: 100%; /* Para que los botones se ajusten al tamaño de la pantalla */
+  transition: transform 0.3s, background-color 0.3s;
 }
 
-.btn-aceptar:hover {
-  background-color: #e48955;
+button:hover {
+  transform: scale(1.1);
 }
 
-/* Cara trasera */
-.carta-trasera {
-  background-color: #f5b0c7;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.btn-si {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-no {
+  background-color: #ff4081;
+  color: white;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.btn-no:active {
+  transform: scale(0.9);
+}
+
+.mensaje-final {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffca28;
+  text-align: center;
+  margin-top: 30px;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.boton-disparo {
+  width: 60px;
+  height: 60px;
+  background-color: #ff4081;
+  border-radius: 50%;
   position: absolute;
-  width: 100%;
-  top: 0;
-  transform: rotateY(180deg); /* Gira la parte trasera */
-  backface-visibility: hidden; /* Oculta la parte trasera cuando está girada */
+  bottom: 30px;
+  right: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
-.imagen-animada {
-  width: 100px;
-  margin-top: 20px;
-  animation: animacionImagen 2s ease-in-out infinite; /* Animación */
+/* Asegurar que todos los elementos tengan un margen y padding coherente */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-
-/* Animación de la imagen */
-@keyframes animacionImagen {
-  0% {
-    transform: rotate(0deg);
-  }
-  50% {
-    transform: rotate(360deg);
-  }
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-/* Media Queries para pantallas más grandes */
-@media (min-width: 768px) {
-  .carta {
-    width: 60%;
-  }
-
-  .carta h2 {
-    font-size: 24px;
-  }
-
-  .carta p {
-    font-size: 16px;
-  }
-
-  .btn-aceptar {
-    width: auto;
-    padding: 15px 30px;
-    font-size: 20px;
-  }
-}
-

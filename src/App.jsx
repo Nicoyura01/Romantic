@@ -1,12 +1,10 @@
-import './App.css';
-
-import React from 'react';
-import CartaMedieval from './components/CartaMedieval'; // Asegúrate de que la ruta sea correcta
+import React from "react";
+import CartaMedieval from "./components/CartaMedieval";
 
 function App() {
   return (
     <div className="App">
-      <CartaMedieval /> {/* Este es tu componente de la carta */}
+      <CartaMedieval />
     </div>
   );
 }

@@ -1,37 +1,60 @@
-import React, { useState } from 'react';
-import './CartaMedieval.css';
+import React, { useState } from "react";
+import "./CartaMedieval.css";
 
 const CartaMedieval = () => {
-  const [mostrandoCarta, setMostrandoCarta] = useState(true); // Estado para controlar si la carta está visible
+  const [clicksNo, setClicksNo] = useState(0); // Contador de clics en el botón "No"
+  const [girar, setGirar] = useState(false); // Controla si la cámara gira
 
-  const handleAceptar = () => {
-    setMostrandoCarta(false); // Ocultar la carta cuando se hace clic en el botón
+  // Función que maneja el clic en el botón "Sí"
+  const handleSiClick = () => {
+    setGirar(true); // Gira la cámara
+  };
+
+  // Función que maneja el clic en el botón "No"
+  const handleNoClick = () => {
+    if (clicksNo < 6) {
+      setClicksNo(clicksNo + 1); // Incrementa los clics hasta el séptimo
+    }
   };
 
   return (
-    <div className="carta-container">
-      <div className={`carta ${!mostrandoCarta ? 'girada' : ''}`}>
-        <div className="carta-frontal">
-          {mostrandoCarta ? (
-            <>
-              <h2>¿Quieres ser mi San Valentín?</h2>
-              <p>Te invito a un viaje a través del tiempo y el amor, en esta carta que te traigo desde épocas medievales.</p>
-              <div className="botones">
-                <button className="btn-aceptar" onClick={handleAceptar}>¡Claro que sí!</button>
-                <button className="btn-aceptar" onClick={handleAceptar}>Obvio que sí!</button>
+    <div className="contenedor">
+      <div className={`camara ${girar ? "girar" : ""}`}>
+        <div className="cuerpo-camara">
+          <div className="visor-reflex"></div>
+          <div className="lente">
+            {!girar ? (
+              <>
+                <h1>¿Ely, quieres ser mi San Valentín?</h1>
+                <p>Quiero que seas el amor de mi vida y celebrar todos los siguientes a tu lado.</p>
+                <div className="botones">
+                  <button className="btn-si" onClick={handleSiClick}>
+                    ¡Claro que sí!
+                  </button>
+                  {clicksNo < 7 && (
+                    <button
+                      className="btn-no"
+                      onClick={handleNoClick}
+                      style={{
+                        transform: `scale(${1 - clicksNo * 0.14})`, // Reduce el tamaño
+                        opacity: 1 - clicksNo * 0.14, // Hace que desaparezca poco a poco
+                      }}
+                    >
+                      No, gracias
+                    </button>
+                  )}
+                </div>
+              </>
+            ) : (
+              <div className="mensaje-final">
+                <h2>Avy Jorrāelan</h2>
+                <p>(Eres mi amor)</p>
               </div>
-            </>
-          ) : (
-            <>
-              <h2>¡YAY!</h2>
-              <p>¡Me alegra que quieras ser mi San Valentín! 💖</p>
-              <img src="https://i.imgur.com/W6z0yY1.png" alt="Corazón" className="imagen-animada" />
-            </>
-          )}
-        </div>
-
-        <div className="carta-trasera">
-          <p>¡Gracias por decir que sí!</p>
+            )}
+          </div>
+          <div className="boton-disparo">
+            <span>N & E</span>
+          </div>
         </div>
       </div>
     </div>
